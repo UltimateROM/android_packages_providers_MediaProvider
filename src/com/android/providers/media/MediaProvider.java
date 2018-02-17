@@ -4729,11 +4729,13 @@ public class MediaProvider extends ContentProvider {
                 }
             }
             if (isWrite) {
+/*
                 if (c.checkCallingOrSelfUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                         != PackageManager.PERMISSION_GRANTED) {
                     c.enforceCallingOrSelfPermission(
                             WRITE_MEDIA_STORAGE, "External path: " + path);
                 }
+*/
             }
         } else if (isWrite) {
             // don't write to non-cache, non-sdcard files.
