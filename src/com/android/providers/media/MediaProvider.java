@@ -23,6 +23,7 @@ import static android.Manifest.permission.WRITE_MEDIA_STORAGE;
 import static android.os.ParcelFileDescriptor.MODE_READ_ONLY;
 import static android.os.ParcelFileDescriptor.MODE_WRITE_ONLY;
 
+
 import android.app.AppOpsManager;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -68,6 +69,7 @@ import android.os.ParcelFileDescriptor;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.os.storage.VolumeInfo;
@@ -5388,7 +5390,9 @@ public class MediaProvider extends ContentProvider {
                             Log.i(TAG, "External volume is not (yet) mounted, cannot attach.");
                         }
 
-                        throw new IllegalArgumentException("Can't obtain external volume ID for " +
+                        if (!SystemProperties.getBoolean(
+                                StorageManager.PROP_PRIMARY_EMULATED, false))
+                            throw new IllegalArgumentException("Can't obtain external volume ID for " +
                                 volume + " volume.");
                     }
 
